@@ -14,7 +14,7 @@ class CreateReportsTable extends Migration {
 			$table->integer('pRequestCount')->nullable();
 			$table->integer('pOrderCount')->nullable();
 			$table->integer('chequeCount')->nullable();
-
+			$table->integer('subscriber_id')->nullable();
 		});
 	}
 

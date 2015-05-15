@@ -25,6 +25,7 @@ class CreateTaskDetailsTable extends Migration {
 			$table->string('custom2', 255)->nullable();
 			$table->string('custom3', 255)->nullable();
 			$table->timestamps();
+			$table->integer('subscriber_id')->nullable();
 		});
 	}
 

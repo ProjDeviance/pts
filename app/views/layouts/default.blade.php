@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Tarlac Procurement Tracking System</title>
+		<title>Procurement Tracking System</title>
 
 		{{ HTML::style('css/bootstrap.css') }}
         {{ HTML::style('css/bootstrap.min.css') }}
@@ -29,14 +29,10 @@
 	    <div class="container theme-showcase" role="main">
 		@yield('content')
 		</div>
-		
-		
 		@yield('footer')
 		<footer class="bs-docs-footer no-print" role="contentinfo">
-			<p class="text-muted" style="text-align: center; font-size: 11px;">Developed by 
-            <a href="http://solutionsresource.com/" title="Solutions Resource Inc. - Web Design and Development Seattle Wa, Mobile Apps, Internet and Social Media Marketing">
-            Solutions Resource, Inc.</a><br/>
-            Powered by <a href="http://laravel.com/" style="color: #f47063">Laravel</a>.
+			<p class="text-muted" style="text-align: center; font-size: 11px;">Developed by Project Deviance.
+           <br/>
         </p>
 		</footer>
 	</body>

@@ -13,6 +13,7 @@ class CreateCountTable extends Migration {
 			$table->integer('user_id')->references('id')->on('users')->nullable();
 			$table->integer('doc_id')->references('id')->on('document')->nullable();
 			$table->timestamps();
+			$table->integer('subscriber_id')->nullable();
 		});
 	}
 

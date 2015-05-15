@@ -11,6 +11,7 @@ class CreateUserHasDesignation extends Migration {
 		{
 			$table->integer('users_id')->references('id')->on('users')->nullable();
 			$table->integer('designation_id')->references('id')->on('designation')->nullable();
+			$table->integer('subscriber_id')->nullable();
 		});
 	}
 

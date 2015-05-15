@@ -13,6 +13,7 @@ class CreateDocumentTable extends Migration {
             $table->string('doctitle',255)->nullable();
             $table->integer('work_id')->references('id')->on('workflow')->nullable();
             $table->integer('pr_id')->references('id')->on('purchase_request')->nullable();
+            $table->integer('subscriber_id')->nullable();
             $table->timestamps();
 		});
 	}

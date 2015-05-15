@@ -29,6 +29,7 @@ class CreatePurchaseRequestTable extends Migration {
 			$table->dateTime('dueDate')->default("00:00:00 00:00:00");
 			$table->string('otherType', 255)->nullable();
 			$table->integer('created_by')->unsigned();
+			$table->integer('subscriber_id')->nullable();
 			$table->timestamps();
 		});
 

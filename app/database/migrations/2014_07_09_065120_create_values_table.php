@@ -13,6 +13,7 @@ class CreateValuesTable extends Migration {
 			$table->string('value', 100);
 			$table->integer('otherDetails_id')->references('id')->on('otherDetails')->nullable();
 			$table->integer('purchase_request_id')->references('id')->on('purchase_request')->nullable();
+			$table->integer('subscriber_id')->nullable();
 		});
 	}		
 

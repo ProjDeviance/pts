@@ -11,6 +11,7 @@ class CreateOfficesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('officeName', 100)->nullable();
+			$table->integer('subscriber_id')->nullable();
 		});
 	}
 

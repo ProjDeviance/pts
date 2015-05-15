@@ -25,6 +25,7 @@ class ConfideSetupUsersTable extends Migration {
             $table->timestamps();
             $table->integer('office_id')->unsigned();
             $table->string('remember_token')->default(true);
+            $table->integer('subscriber_id')->nullable();
         });
 
         // Creates password reminders table

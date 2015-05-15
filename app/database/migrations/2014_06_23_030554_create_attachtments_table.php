@@ -14,6 +14,7 @@ class CreateAttachtmentsTable extends Migration {
             $table->timestamps();
             $table->integer('saved')->default(0);
             $table->integer('doc_id')->references('id')->on('document')->nullable();
+            $table->integer('subscriber_id')->nullable();
 		});
 	}
 

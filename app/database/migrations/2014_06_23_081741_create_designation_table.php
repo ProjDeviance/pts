@@ -11,6 +11,7 @@ class CreateDesignationTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('designation', 100)->nullable();
+			$table->integer('subscriber_id')->nullable();
 			
 		});
 	}

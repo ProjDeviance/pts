@@ -12,6 +12,7 @@ class CreateWorkflowTable extends Migration {
 			$table->increments('id');
 			$table->string('workFlowName', 255)->nullable();
 			$table->integer('totalDays')->unsigned()->nullable();
+			$table->integer('subscriber_id')->nullable();
 			$table->timestamps();
 		});
 	}

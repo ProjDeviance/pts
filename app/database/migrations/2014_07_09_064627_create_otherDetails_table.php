@@ -12,6 +12,7 @@ class CreateOtherDetailsTable extends Migration {
 			$table->increments('id');
 			$table->string('label', 45)->nullable();
 			$table->integer('section_id')->references('id')->on('section')->nullable();
+			$table->integer('subscriber_id')->nullable();
 		});
 	}
 

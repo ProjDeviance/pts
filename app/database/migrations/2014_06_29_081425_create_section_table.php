@@ -13,6 +13,7 @@ class CreateSectionTable extends Migration {
 			$table->string('sectionName', 100)->nullable();
 			$table->integer('section_order_id')->unsigned()->nullable();
 			$table->integer('workflow_id')->references('id')->on('workflow')->nullable();
+			$table->integer('subscriber_id')->nullable();
 		});
 	}
 

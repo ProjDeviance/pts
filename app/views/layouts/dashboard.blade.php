@@ -13,7 +13,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Tarlac Procurement Tracking System</title>
+        <title>Procurement Tracking System</title>
         {{ HTML::style('css/bootstrap.css') }}
         {{ HTML::style('css/bootstrap.min.css') }}
         {{ HTML::style('css/bootstrap-theme.min.css') }}
@@ -70,7 +70,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">{{ HTML::image('img/logo-nav2.png', 'Tarlac Procurement Tracking System', array('id' => '')) }}</a>
+                <a class="navbar-brand" href="/">{{ HTML::image('img/logo-nav2.png', 'Procurement Tracking System', array('id' => '')) }}</a>
             </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -382,10 +382,8 @@
 
     <br/>
     <div class="container no-print" style="width: 100%">
-        <p class="text-muted" style="text-align: center; font-size: 11px;">Developed by 
-            <a href="http://solutionsresource.com/" title="Solutions Resource Inc. - Web Design and Development Seattle Wa, Mobile Apps, Internet and Social Media Marketing">
-            Solutions Resource, Inc.</a><br/>
-            Powered by <a href="http://laravel.com/" style="color: #f47063">Laravel</a>.
+        <p class="text-muted" style="text-align: center; font-size: 11px;">Developed by Project Deviance<br/>.
+          
         </p>
     </div>
 </div><!-- /#page-wrapper -->

@@ -23,6 +23,7 @@ class EntrustSetupTables extends Migration {
             $table->integer('role_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users'); // assumes a users table
             $table->foreign('role_id')->references('id')->on('roles');
+            $table->integer('subscriber_id')->nullable();
         });
 
         // Creates the permissions table

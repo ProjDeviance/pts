@@ -21,6 +21,7 @@ class CreateTasksTable extends Migration {
 			$table->integer('taskDetails_id')->references('id')->on('taskDetails')->nullable();
 			$table->integer('order_id')->unsigned()->unsigned();
 			$table->string('taskType', 255);
+			$table->integer('subscriber_id')->nullable();
 		});
 	}
 
