@@ -37,7 +37,7 @@ class UserController extends BaseController {
     public function store() // SAVING FOR USER ACCOUNT CREATION
     {
         $user = new User;
-
+        $user->subscriber_id = Auth::user()->subscriber_id;
         $user->username = trim(Input::get( 'username' ));
         $checkusername = User::where('username', $user->username)->first();
         if(Input::get('role')==1 && Input::get('email')==NULL)

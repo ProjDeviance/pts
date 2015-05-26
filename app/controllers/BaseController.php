@@ -80,7 +80,7 @@ class BaseController extends Controller {
 				$document->pr_id = $purchase->id;
 				$document->work_id = $amtControl;
 				$document->subscriber_id = Auth::user()->subscriber_id;
-				
+
 				$document_save = $document->save();
 				if($document_save)
 				{
@@ -171,7 +171,7 @@ class BaseController extends Controller {
 
 					}
 
-					$users = User::all();
+					$users = User::where("subscriber_id", Auth::user()->subscriber_id)->all();
 					foreach($users as $user)
 					{
 						$count = new Count;
@@ -260,9 +260,9 @@ class BaseController extends Controller {
 
 														  
 					Session::put('notice', $notice);
-					$office = Office::all();
-					$users = User::all();
-					$workflow = Workflow::all();
+					$office = Office::where("subscriber_id", Auth::user()->subscriber_id)->all();
+					$users = User::where("subscriber_id", Auth::user()->subscriber_id)->all();
+					$workflow = Workflow::where("subscriber_id", Auth::user()->subscriber_id)->all();
 
 					//return Redirect::to('purchaseRequest/view');
 					return Redirect::to('janisawesome');
