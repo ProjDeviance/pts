@@ -10,14 +10,14 @@ class PurchaseRequestController extends Controller
         $searchBy = '0';
         if(Entrust::hasRole('Requisitioner'))
         {
-            $requests = DB::table('purchase_request')->where('office', '=', Auth::user()->office_id)->where('dueDate','>',$date_today)->where('status', '=', 'Active')->orderBy('dateReceived', 'DESC');
+            $requests = DB::table('purchase_request')->where("subscriber_id", Auth::user()->subscriber_id)->where('office', '=', Auth::user()->office_id)->where('dueDate','>',$date_today)->where('status', '=', 'Active')->orderBy('dateReceived', 'DESC');
 
             $pageCounter = $requests->count();
             $requests = $requests->get();
         }
         else
         {
-            $requests = DB::table('purchase_request')->where('dueDate','>',$date_today)->where('status', '=', 'Active')->orderBy('dateReceived', 'DESC');
+            $requests = DB::table('purchase_request')->where("subscriber_id", Auth::user()->subscriber_id)->where('dueDate','>',$date_today)->where('status', '=', 'Active')->orderBy('dateReceived', 'DESC');
             $pageCounter = $requests->count();
             $requests = $requests->get();
         }
@@ -31,13 +31,13 @@ class PurchaseRequestController extends Controller
         $searchBy = '0';
         if(Entrust::hasRole('Requisitioner'))
         {
-            $requests = DB::table('purchase_request')->where('dueDate','>',$date_today)->where('office', Auth::user()->office_id)->where('status', '=', 'Closed')->orderBy('dateReceived', 'DESC');
+            $requests = DB::table('purchase_request')->where("subscriber_id", Auth::user()->subscriber_id)->where('dueDate','>',$date_today)->where('office', Auth::user()->office_id)->where('status', '=', 'Closed')->orderBy('dateReceived', 'DESC');
             $pageCounter = $requests->count();
             $requests = $requests->get();
         }
         else
         {
-            $requests = DB::table('purchase_request')->where('dueDate','>',$date_today)->where('status', '=', 'Closed')->orderBy('dateReceived', 'DESC');
+            $requests = DB::table('purchase_request')->where("subscriber_id", Auth::user()->subscriber_id)->where('dueDate','>',$date_today)->where('status', '=', 'Closed')->orderBy('dateReceived', 'DESC');
             $pageCounter = $requests->count();
             $requests = $requests->get();
         }
@@ -52,13 +52,13 @@ class PurchaseRequestController extends Controller
         $searchBy = '0';
         if(Entrust::hasRole('Requisitioner'))
         {
-            $requests = DB::table('purchase_request')->where('dueDate','<=',$date_today)->where('office', Auth::user()->office_id)->where('status', '=', 'Active')->orderBy('dateReceived', 'DESC');
+            $requests = DB::table('purchase_request')->where("subscriber_id", Auth::user()->subscriber_id)->where('dueDate','<=',$date_today)->where('office', Auth::user()->office_id)->where('status', '=', 'Active')->orderBy('dateReceived', 'DESC');
             $pageCounter = $requests->count();
             $requests = $requests->get();
         }
         else
         {
-            $requests = DB::table('purchase_request')->where('dueDate','<=',$date_today)->where('status', '=', 'Active')->orderBy('dateReceived', 'DESC');
+            $requests = DB::table('purchase_request')->where("subscriber_id", Auth::user()->subscriber_id)->where('dueDate','<=',$date_today)->where('status', '=', 'Active')->orderBy('dateReceived', 'DESC');
             $pageCounter = $requests->count();
             $requests = $requests->get();
         }
@@ -72,13 +72,13 @@ class PurchaseRequestController extends Controller
         $searchBy = '0';
         if(Entrust::hasRole('Requisitioner'))
         {
-            $requests = DB::table('purchase_request')->where('dueDate','>',$date_today)->where('office', Auth::user()->office_id)->where('status', '=', 'Cancelled')->orderBy('dateReceived', 'DESC');
+            $requests = DB::table('purchase_request')->where("subscriber_id", Auth::user()->subscriber_id)->where('dueDate','>',$date_today)->where('office', Auth::user()->office_id)->where('status', '=', 'Cancelled')->orderBy('dateReceived', 'DESC');
             $pageCounter = $requests->count();
             $requests = $requests->get();
         }
         else
         {
-            $requests = DB::table('purchase_request')->where('dueDate','>',$date_today)->where('status', '=', 'Cancelled')->orderBy('dateReceived', 'DESC');
+            $requests = DB::table('purchase_request')->where("subscriber_id", Auth::user()->subscriber_id)->where('dueDate','>',$date_today)->where('status', '=', 'Cancelled')->orderBy('dateReceived', 'DESC');
             $pageCounter = $requests->count();
             $requests = $requests->get();
         }
@@ -312,6 +312,7 @@ class PurchaseRequestController extends Controller
 
         $purchase = new Purchase;
         $document = new Document;
+        $purchase->subscriber_id=Auth::user()->subscriber_id;
         $purchase->projectPurpose = strip_tags(Input::get( 'projectPurpose' ));
         $purchase->sourceOfFund = strip_tags(Input::get( 'sourceOfFund' ));
         $purchase->amount = Input::get( 'amount' );
@@ -350,6 +351,7 @@ class PurchaseRequestController extends Controller
 
         if($purchase_save&&(Session::get('imgerror')==NULL||!Input::hasfile('file')))
         {
+            $document->subscriber_id= Auth::user()->id;
             $document->pr_id = $purchase->id;
             $document->work_id = Input::get('hide_modeOfProcurement');
             $document_save = $document->save();
@@ -358,7 +360,7 @@ class PurchaseRequestController extends Controller
             {
                 $doc_id= $document->id;
                 $workflow=Workflow::find($document->work_id);
-                $section=Section::where('workflow_id',$document->work_id)->orderBy('section_order_id', 'ASC')->get();
+                $section=Section::where('workflow_id',$document->work_id)->where("subscriber_id", Auth::user()->subscriber_id)->orderBy('section_order_id', 'ASC')->get();
                 $firstnew=0;
 
                 // Set due date;
@@ -369,13 +371,15 @@ class PurchaseRequestController extends Controller
                 date_default_timezone_set("Asia/Manila");
                 $dueDate = date('Y-m-d H:i:s', strtotime("+$addToDate days" ));
                 $new_purchase->dueDate = $dueDate;
+                $new_purchase->subscriber_id= Auth::user()->subscriber_id;
                 $new_purchase->save();
 
-                $tasks = Task::where('wf_id', $document->work_id)->orderBy('section_id', 'ASC')->orderBy('order_id', 'ASC')->get();
+                $tasks = Task::where('wf_id', $document->work_id)->where("subscriber_id", Auth::user()->subscriber_id)->orderBy('section_id', 'ASC')->orderBy('order_id', 'ASC')->get();
 
                 foreach ($tasks as $task)
                 {
                     $task_details = New TaskDetails;
+                    $task_details->subscriber_id = Auth::user()->subscriber_id;
                     $task_details->task_id = $task->id;
                     $stringamount=$new_purchase->amount;
                     $stringamount=str_replace(str_split(','), '', $stringamount);
@@ -482,7 +486,7 @@ class PurchaseRequestController extends Controller
                 // Insert data to reports table
                 $date_received = Input::get( 'dateReceived' );
                 $date_received = substr($date_received, 0, strrpos($date_received, ' '));
-                $reports = Reports::whereDate($date_received)->first();
+                $reports = Reports::whereDate($date_received)->where("subscriber_id", Auth::user()->subscriber_id)->first();
 
                 if($reports == null)
                 {
@@ -684,6 +688,7 @@ class PurchaseRequestController extends Controller
                 });
 
                 $attach = new Attachments;
+                $attach->subscriber_id = Auth::user()->subscriber_id;
                 $attach->doc_id=$doc_id;
                 $attach->data = $archivo;
                 $attach->saved = 1;
@@ -833,9 +838,10 @@ class PurchaseRequestController extends Controller
         $POCount = 0;
         $chequeCount = 0;
 
-        $reports = Reports::all();
+        $reports = Reports::where("subscriber_id", Auth::user()->subscriber_id)->get();
         foreach ($reports as $report)
         {
+
             $prCount = $prCount + $report->pRequestCount;
             $POCount = $POCount + $report->pOrderCount;
             $chequeCount = $chequeCount + $report->chequeCount;
@@ -1216,6 +1222,7 @@ class PurchaseRequestController extends Controller
             $insertvalue->otherDetails_id=$otherDetails_id;
             $insertvalue->purchase_request_id=$purchase_request_id;
             $insertvalue->value=$value;
+            $insertvalue->subscriber_id= Auth::user()->subscriber_id;
             $insertvalue->save();
             Session::forget('retainOtherDetails');
             Session::forget('retainId');

@@ -9,6 +9,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '1';
         $sec->sectionName = 'PURCHASE REQUEST';
         $sec->workflow_id = '1';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         $sec = new Section;
@@ -16,6 +17,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '2';
         $sec->sectionName = 'BAC REQUIREMENTS';
         $sec->workflow_id = '1';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         $sec = new Section;
@@ -23,6 +25,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '3';
         $sec->sectionName = 'PURCHASE ORDER';
         $sec->workflow_id = '1';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         $sec = new Section;
@@ -30,6 +33,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '4';
         $sec->sectionName = 'VOUCHER';
         $sec->workflow_id = '1';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         // WORKFLOW 2
@@ -38,6 +42,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '1';
         $sec->sectionName = 'PURCHASE REQUEST';
         $sec->workflow_id = '2';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         $sec = new Section;
@@ -45,6 +50,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '2';
         $sec->sectionName = 'BAC REQUIREMENTS';
         $sec->workflow_id = '2';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         $sec = new Section;
@@ -52,6 +58,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '3';
         $sec->sectionName = 'PURCHASE ORDER';
         $sec->workflow_id = '2';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         $sec = new Section;
@@ -59,6 +66,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '4';
         $sec->sectionName = 'VOUCHER';
         $sec->workflow_id = '2';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         // WORKFLOW 3
@@ -67,6 +75,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '1';
         $sec->sectionName = 'PURCHASE REQUEST';
         $sec->workflow_id = '3';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         $sec = new Section;
@@ -74,6 +83,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '2';
         $sec->sectionName = 'BAC REQUIREMENTS';
         $sec->workflow_id = '3';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         $sec = new Section;
@@ -81,6 +91,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '3';
         $sec->sectionName = 'PURCHASE ORDER';
         $sec->workflow_id = '3';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         $sec = new Section;
@@ -88,6 +99,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '4';
         $sec->sectionName = 'VOUCHER';
         $sec->workflow_id = '3';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         // WORKFLOW 4
@@ -97,6 +109,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '1';
         $sec->sectionName = 'PURCHASE REQUEST';
         $sec->workflow_id = '4';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         $sec = new Section;
@@ -104,6 +117,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '2';
         $sec->sectionName = 'REQUIREMENTS';
         $sec->workflow_id = '4';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         $sec = new Section;
@@ -111,6 +125,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '3';
         $sec->sectionName = 'VOUCHER';
         $sec->workflow_id = '4';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         // WORKFLOW 5
@@ -121,6 +136,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '1';
         $sec->sectionName = 'PURCHASE REQUEST';
         $sec->workflow_id = '5';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         $sec = new Section;
@@ -128,6 +144,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '2';
         $sec->sectionName = 'REQUIREMENTS';
         $sec->workflow_id = '5';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         $sec = new Section;
@@ -135,6 +152,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '3';
         $sec->sectionName = 'PURCHASE ORDER';
         $sec->workflow_id = '5';
+        $sec->subscriber_id ='1';
         $sec->save();
 
         $sec = new Section;
@@ -142,6 +160,7 @@ class SectionSeeder extends Seeder {
         $sec->section_order_id = '4';
         $sec->sectionName = 'VOUCHER';
         $sec->workflow_id = '5';
+        $sec->subscriber_id ='1';
         $sec->save();
     }
 }

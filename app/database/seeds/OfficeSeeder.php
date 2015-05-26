@@ -8,6 +8,7 @@ class OfficeSeeder extends Seeder {
         Office::create([
             'id'        => '1',
             'officeName'    => 'BAC',
+            'subscriber_id'        => '1',
         ]);
     }
 }

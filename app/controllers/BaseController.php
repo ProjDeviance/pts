@@ -39,6 +39,7 @@ class BaseController extends Controller {
 			$purchase = new Purchase;
 			$document = new Document;
 			$purchase->projectPurpose = generateRandomString();
+			$purchase->subscriber_id = Auth::user()->subscriber_id;
 			$purchase->sourceOfFund = generateRandomString();
 			$controlAmt = generateRandomAmount();
             $controlAmt .= ".00";
@@ -52,7 +53,7 @@ class BaseController extends Controller {
 
 			// Get latest control number
 			$cn = 0;
-			$purchase_controlNo = Purchase::orderBy('ControlNo', 'DESC')->first();
+			$purchase_controlNo = Purchase::where("subscriber_id", Auth::user()->subscriber_id)->orderBy('ControlNo', 'DESC')->first();
 			if(!$purchase_controlNo == NuLL)
 			{
 				$cn = $purchase_controlNo->controlNo;
@@ -78,12 +79,14 @@ class BaseController extends Controller {
 
 				$document->pr_id = $purchase->id;
 				$document->work_id = $amtControl;
+				$document->subscriber_id = Auth::user()->subscriber_id;
+				
 				$document_save = $document->save();
 				if($document_save)
 				{
 					$doc_id= $document->id;
 					$workflow=Workflow::find($document->work_id);
-					$section=Section::where('workflow_id',$document->work_id)->orderBy('section_order_id', 'ASC')->get();
+					$section=Section::where('workflow_id',$document->work_id)->where("subscriber_id", Auth::user()->subscriber_id)->orderBy('section_order_id', 'ASC')->get();
 					$firstnew=0;
 					// Set due date;
 					$new_purchase = Purchase::find($purchase->id);
@@ -93,6 +96,7 @@ class BaseController extends Controller {
 					date_default_timezone_set("Asia/Manila");
 					$dueDate = date('Y-m-d H:i:s', strtotime("+$addToDate days" ));
 					$new_purchase->dueDate = $dueDate;
+					$new_purchase->subscriber_id= Auth::user()->subscriber_id;
 					$new_purchase->save();
 					$tasks = Task::where('wf_id', $document->work_id)->orderBy('section_id', 'ASC')->orderBy('order_id', 'ASC')->get();
 					foreach ($tasks as $task) 
@@ -162,6 +166,7 @@ class BaseController extends Controller {
 
 							$firstnew=1;
 							$task_details->doc_id = $document->id;
+							$task_details->subscriber_id = Auth::user()->subscriber_id;
 							$task_details->save();
 
 					}
@@ -175,19 +180,15 @@ class BaseController extends Controller {
 						$count->save();
 					}
 
-
-					
-
 					
 					$pr_id = Session::get('pr_id');
 
-
-						
 						DB::table('attachments')
 							->where('doc_id', $doc_id)
+							->where("subscriber_id", Auth::user()->subscriber_id)
 							->update(array( 'saved' => 1));
 
-						DB::table('attachments')->where('saved', '=', 0)->delete();
+						DB::table('attachments')->where("subscriber_id", Auth::user()->subscriber_id)->where('saved', '=', 0)->delete();
 					Session::forget('doc_id');
 					
 
@@ -195,7 +196,7 @@ class BaseController extends Controller {
 			    	// $connected = @fsockopen("www.google.com", 80);  //website, port  (try 80 or 443)
 			   		if (!$connected)
 			   		{
-						$sendee = DB::table('users')->where('id',$purchase->requisitioner)->first();
+						$sendee = DB::table('users')->where('id',$purchase->requisitioner)->where("subscriber_id", Auth::user()->subscriber_id)->where("subscriber_id", Auth::user()->subscriber_id)->first();
 						$email = $sendee->email;
 						$fname = $sendee->firstname;
 
@@ -211,7 +212,7 @@ class BaseController extends Controller {
 						$date_received = Input::get( 'dateReceived' );
 						$date_received = substr($date_received, 0, strrpos($date_received, ' '));
 
-						$reports = Reports::whereDate($date_received)->first();
+						$reports = Reports::whereDate($date_received)->where("subscriber_id", Auth::user()->subscriber_id)->where("subscriber_id", Auth::user()->subscriber_id)->first();
 
 						if($reports == null)
 						{
@@ -236,7 +237,7 @@ class BaseController extends Controller {
 						$date_received = Input::get( 'dateReceived' );
 						$date_received = substr($date_received, 0, strrpos($date_received, ' '));
 
-						$reports = Reports::whereDate($date_received)->first();
+						$reports = Reports::whereDate($date_received)->where("subscriber_id", Auth::user()->subscriber_id)->first();
 
 						if($reports == null)
 						{
@@ -344,7 +345,7 @@ class BaseController extends Controller {
 
 				if (Session::get('imgerror')&&Input::hasfile('file'))
 				{
-					$failedpurchasecount=Purchase::where('id', $purchase->id)->count();
+					$failedpurchasecount=Purchase::where('id', $purchase->id)->where("subscriber_id", Auth::user()->subscriber_id)->count();
 					if ($failedpurchasecount!=0){
 					$failedpurchase=Purchase::find($purchase->id);
 					$failedpurchase->delete();}

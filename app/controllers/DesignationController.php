@@ -11,13 +11,14 @@ class DesignationController extends BaseController {
 
 	public function index()
 	{
-		$designations=$this->designation->orderBy('designation','asc')->paginate(50);
+		$designations=$this->designation->where("subscriber_id", Auth::user()->subscriber_id)->orderBy('designation','asc')->paginate(50);
 		return View::make('designation', compact('designations'));
 	}
 
 	public function store()
 	{
 		$designation = new Designation;
+		$designation->subscriber_id = Auth::user()->subscriber_id;
 		$designation->designation = Input::get( 'designationName' );
 		if($designation->save())
 		{
@@ -123,6 +124,7 @@ class DesignationController extends BaseController {
 
 	public function members($id)
 	{
+		$subscriber_id = Auth::user()->subscriber_id;
 		$selected_users = DB::select("select * from users join user_has_designation on users.id = user_has_designation.users_id where user_has_designation.designation_id = $id");
 		$notselected_users = DB::select("select * from users where id not in ( select users_id from user_has_designation where designation_id = $id) and confirmed = 1");
 
@@ -154,7 +156,7 @@ class DesignationController extends BaseController {
 		$members = explode(",", $members_selected);
 
 		$designation_id = Input::get('designation_id');
-		UserHasDesignation::where('designation_id', '=', $designation_id )->delete();
+		UserHasDesignation::where('designation_id', '=', $designation_id )->where("subscriber_id", Auth::user()->subscriber_id)->delete();
 
 		foreach ($members as $key)
 		{
@@ -166,11 +168,11 @@ class DesignationController extends BaseController {
 				$uhd->save();
 
 				if ($designation_id==0) {
-					$tasks=Task::where('designation_id', $designation_id)->get();
+					$tasks=Task::where('designation_id', $designation_id)->where("subscriber_id", Auth::user()->subscriber_id)->get();
 			foreach ($tasks as $task ) {
 			
 				
-				DB::table('taskdetails')->where('task_id', $task->id)->where('assignee_id', $key)->update(array('status' => 'New'));
+				DB::table('taskdetails')->where("subscriber_id", Auth::user()->subscriber_id)->where('task_id', $task->id)->where('assignee_id', $key)->update(array('status' => 'New'));
 			}
 				}
 			}
@@ -188,6 +190,7 @@ class DesignationController extends BaseController {
 		$id= Input::get('task_id');
 		$assignd = Task::find($id);
 		$assignd->d_id = Input::get('designa');
+		
 		$assignd->save();
 		return Redirect::back()->with('success','Successfully deleted');
 	}

@@ -8,6 +8,7 @@ class UserHasDesignationSeeder extends Seeder {
         UserHasDesignation::create([
             'users_id'        => '1',
             'designation_id'    => '0',
+            'subscriber_id' => '1',
         ]);
     }
 }

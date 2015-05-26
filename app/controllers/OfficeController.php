@@ -13,7 +13,7 @@ class OfficeController extends BaseController {
 
 	public function index()
 	{
-		$offices=$this->office->orderBy('officeName','asc')->paginate(50);
+		$offices=$this->office->where("subscriber_id", Auth::user()->subscriber_id)->orderBy('officeName','asc')->paginate(50);
 		return View::make('offices', compact('offices'));
 	}
 
@@ -23,7 +23,7 @@ class OfficeController extends BaseController {
 		$checkofficename=0;
 
 		$offices = new Office;
-		$offices = DB::table('offices')->get();
+		$offices = DB::table('offices')->where("subscriber_id", Auth::user()->subscriber_id)->get();
 
 		foreach ($offices as $office)
 		{
@@ -51,6 +51,7 @@ class OfficeController extends BaseController {
 		}
 		else
 		{
+			$this->office->subscriber_id = Auth::user()->subscriber_id;
 			$this->office->save();
 			return Redirect::to('/offices')->with('success', 'Successfully created an office.');
 		}

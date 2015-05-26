@@ -253,6 +253,7 @@ class TaskController extends Controller {
 	        $newtask= new OtherDetails;
 	        $newtask->section_id=$section_id;
 	        $newtask->label= $label;
+	        $newtask->subscriber_id = Auth::user()->subscriber_id;
 	        $newtask->save();
 	        Session::put('successlabel', 'Successfully added new task.');
 	        return Redirect::back();
@@ -345,6 +346,7 @@ class TaskController extends Controller {
 					return strtolower($filename);
 				});
 		        $attach = new Attachments;
+		        $attach->subscriber_id= Auth::user()->subscriber_id;
 		        $attach->doc_id=$doc_id;
 				$attach->data = $archivo;
 				$attach->saved=1;

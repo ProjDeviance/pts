@@ -55,7 +55,7 @@ class AjaxController extends Controller
 			$end = '9998-01-01';
 			$start = '0001-01-01';
 
-			$reports = Reports::whereBetween('date', array($start, $end))->get(); 
+			$reports = Reports::whereBetween('date', array($start, $end))->where("subscriber_id", Auth::user()->subscriber_id)->get(); 
 			foreach ($reports as $report) 
 			{
 				$prCount = $prCount + $report->pRequestCount;
@@ -98,7 +98,7 @@ class AjaxController extends Controller
 		{
 			$end = '9998-01-01';
 
-			$reports = Reports::whereBetween('date', array($start, $end))->get(); 
+			$reports = Reports::whereBetween('date', array($start, $end))->where("subscriber_id", Auth::user()->subscriber_id)->get(); 
 			foreach ($reports as $report) 
 			{
 				$prCount = $prCount + $report->pRequestCount;
@@ -141,7 +141,7 @@ class AjaxController extends Controller
 		{
 			$start = '0001-01-01';
 
-			$reports = Reports::whereBetween('date', array($start, $end))->get(); 
+			$reports = Reports::whereBetween('date', array($start, $end))->where("subscriber_id", Auth::user()->subscriber_id)->get(); 
 			foreach ($reports as $report) 
 			{
 				$prCount = $prCount + $report->pRequestCount;
@@ -182,7 +182,7 @@ class AjaxController extends Controller
 
 		else
 		{
-			$reports = Reports::whereBetween('date', array($start, $end))->get(); 
+			$reports = Reports::whereBetween('date', array($start, $end))->where("subscriber_id", Auth::user()->subscriber_id)->get(); 
 			foreach ($reports as $report) 
 			{
 				$prCount = $prCount + $report->pRequestCount;
