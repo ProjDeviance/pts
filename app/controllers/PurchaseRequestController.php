@@ -87,8 +87,8 @@ class PurchaseRequestController extends Controller
 
     public function create()
     {
-        $office = Office::all();
-        $users = User::all();
+        $office = Office::where("subscriber_id", Auth::user()->subscriber_id)->all();
+        $users = User::where("subscriber_id", Auth::user()->subscriber_id)->all();
         $workflow = Workflow::all();
         return View::make('purchaseRequest.purchaseRequest_create')
             ->with('office',$office)
@@ -360,7 +360,7 @@ class PurchaseRequestController extends Controller
             {
                 $doc_id= $document->id;
                 $workflow=Workflow::find($document->work_id);
-                $section=Section::where('workflow_id',$document->work_id)->where("subscriber_id", Auth::user()->subscriber_id)->orderBy('section_order_id', 'ASC')->get();
+                $section=Section::where('workflow_id',$document->work_id)->orderBy('section_order_id', 'ASC')->get();
                 $firstnew=0;
 
                 // Set due date;
@@ -374,7 +374,7 @@ class PurchaseRequestController extends Controller
                 $new_purchase->subscriber_id= Auth::user()->subscriber_id;
                 $new_purchase->save();
 
-                $tasks = Task::where('wf_id', $document->work_id)->where("subscriber_id", Auth::user()->subscriber_id)->orderBy('section_id', 'ASC')->orderBy('order_id', 'ASC')->get();
+                $tasks = Task::where('wf_id', $document->work_id)->orderBy('section_id', 'ASC')->orderBy('order_id', 'ASC')->get();
 
                 foreach ($tasks as $task)
                 {
@@ -502,8 +502,8 @@ class PurchaseRequestController extends Controller
                 //End Reports
 
                 Session::put('notice', $notice);
-                $office = Office::all();
-                $users = User::all();
+                $office = Office::where("subscriber_id", Auth::user()->subscriber_id)->all();
+                $users = User::where("subscriber_id", Auth::user()->subscriber_id)->all();
                 $workflow = Workflow::all();
 
                 return Redirect::to('purchaseRequest/view');

@@ -17,6 +17,7 @@ class CreatePartnersTable extends Migration {
 
 			$table->string('password', 50)->nullable();
 			$table->string('Description', 100)->nullable();
+			$table->timestamps();
 			
 		});
 	}

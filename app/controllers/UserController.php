@@ -440,7 +440,14 @@ class UserController extends BaseController {
 
     public function dashboard()
     {
-        $purchases = Purchase::all();
+        $firstTimeCheck = Workflow::where("subscriber_id", Auth::user()->subscriber_id)->count();
+
+        if($firstTimeCheck==0)
+        {
+
+        }
+
+        $purchases = Purchase::where("subscriber_id", Auth::user()->subscriber_id)->all();
         $date_today =date('Y-m-d H:i:s');
 
         return View::make('dashboard');

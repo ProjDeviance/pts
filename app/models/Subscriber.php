@@ -2,6 +2,6 @@
 
 class Subscriber extends Eloquent{
 
-	protected $table = 'subscriber';
+	protected $table = 'subscribers';
 
 }

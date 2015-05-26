@@ -15,6 +15,7 @@ class CreateSourceFundsTable extends Migration {
 			$table->string('year', 50)->nullable();
 			$table->double('amount', 30, 2 )->nullable();
 			$table->integer('subscriber_id')->nullable();
+			$table->timestamps();
 		});
 	}
 

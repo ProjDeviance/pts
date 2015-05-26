@@ -12,18 +12,21 @@ class CreateSubcribersTable extends Migration {
 			$table->increments('id');
 			$table->date('due_date');
 			$table->integer('status')->nullable();
-			$table->string('name', 50)->nullable();
+			$table->string('firstname', 50)->nullable();
+			$table->string('lastname', 50)->nullable();
 			$table->string('municipality', 50)->nullable();
 			$table->string('email', 50)->nullable();
 			$table->string('contact_no', 50)->nullable();
 			$table->integer('rank')->nullable();
+			$table->integer('user_id')->nullable();
+			$table->timestamps();
 			
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('subcribers');
+		Schema::drop('subscribers');
 		
 	}
 

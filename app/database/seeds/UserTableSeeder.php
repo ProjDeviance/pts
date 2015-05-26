@@ -31,5 +31,7 @@ class UserTableSeeder extends Seeder {
         $sub->email = 'pgtbac@yahoo.com';
         $sub->contact_no = "092323241";
         $sub->rank = 1;
+        $sub->user_id = 1;
+        $sub->save();
     }
 }
