@@ -447,7 +447,7 @@ class UserController extends BaseController {
 
         }
 
-        $purchases = Purchase::where("subscriber_id", Auth::user()->subscriber_id)->all();
+        $purchases = Purchase::where("subscriber_id", Auth::user()->subscriber_id)->get();
         $date_today =date('Y-m-d H:i:s');
 
         return View::make('dashboard');

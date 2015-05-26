@@ -66,6 +66,11 @@
 			         	@foreach($notselected_users as $key)	
 
 			         		<?php 
+			         		if($key->subscriber_id!=Auth::user()->subscriber_id)
+			         		{
+			         			continue;
+			         		}
+
 			         		if ($key->confirmed==0)
 			         			continue;
 				         		$roles=Assigned::where('user_id', $key->id)->first();
@@ -101,6 +106,11 @@
 		          	@foreach($selected_users as $key2)
 
 			        	<?php
+			        	if($key2->subscriber_id!=Auth::user()->subscriber_id)
+			         		{
+			         			continue;
+			         		}
+
 			        	 $roles=Assigned::where('user_id', $key2->id)->first();
 			        	if($roles->role_id!=1)
 			        	{
