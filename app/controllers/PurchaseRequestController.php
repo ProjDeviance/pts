@@ -87,8 +87,8 @@ class PurchaseRequestController extends Controller
 
     public function create()
     {
-        $office = Office::where("subscriber_id", Auth::user()->subscriber_id)->all();
-        $users = User::where("subscriber_id", Auth::user()->subscriber_id)->all();
+        $office = Office::where("subscriber_id", Auth::user()->subscriber_id)->get();
+        $users = User::where("subscriber_id", Auth::user()->subscriber_id)->get();
         $workflow = Workflow::all();
         return View::make('purchaseRequest.purchaseRequest_create')
             ->with('office',$office)
@@ -502,8 +502,8 @@ class PurchaseRequestController extends Controller
                 //End Reports
 
                 Session::put('notice', $notice);
-                $office = Office::where("subscriber_id", Auth::user()->subscriber_id)->all();
-                $users = User::where("subscriber_id", Auth::user()->subscriber_id)->all();
+                $office = Office::where("subscriber_id", Auth::user()->subscriber_id)->get();
+                $users = User::where("subscriber_id", Auth::user()->subscriber_id)->get();
                 $workflow = Workflow::all();
 
                 return Redirect::to('purchaseRequest/view');
