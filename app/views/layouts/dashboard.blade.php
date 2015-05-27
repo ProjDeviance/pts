@@ -87,7 +87,7 @@
                             $result=0;
                             $cuser= Auth::user()->id;
                             $date_today =date('Y-m-d H:i:s');
-                            $cpurchase= DB::table('purchase_request')->where('dueDate','>',$date_today)->where('status', '=', 'Active')->get();
+                            $cpurchase= DB::table('purchase_request')->where("subscriber_id", Auth::user()->subscriber_id)->where('dueDate','>',$date_today)->where('status', '=', 'Active')->get();
                                 foreach ($cpurchase as $cpurchases ) {
                                     $doccount=Document::where('pr_id', $cpurchases->id)->count();
                                     if($doccount==0)
@@ -135,7 +135,7 @@
                                <?php
                                         $result=0;
                                         $cuser= Auth::user()->id;
-                                        $cpurchase= DB::table('purchase_request')->where('status', '=', 'Closed')->get();
+                                        $cpurchase= DB::table('purchase_request')->where("subscriber_id", Auth::user()->subscriber_id)->where('status', '=', 'Closed')->get();
                                         foreach ($cpurchase as $cpurchases ) 
                                         {
                                              $doccount=Document::where('pr_id', $cpurchases->id)->count();
@@ -182,7 +182,7 @@
                                     $result=0;
                                     $cuser= Auth::user()->id;
                                     $date_today =date('Y-m-d H:i:s');
-                                    $cpurchase= DB::table('purchase_request')->where('dueDate','<=',$date_today)->where('status', '=', 'Active')->get();
+                                    $cpurchase= DB::table('purchase_request')->where("subscriber_id", Auth::user()->subscriber_id)->where('dueDate','<=',$date_today)->where('status', '=', 'Active')->get();
                     
                                     foreach ($cpurchase as $cpurchases ) 
                                     {
@@ -230,7 +230,7 @@
                                 <?php
                                     $result=0;
                                     $cuser= Auth::user()->id;
-                                    $cpurchase= DB::table('purchase_request')->where('status', '=', 'Cancelled')->orWhere('status', '=', 'In progress')->get();
+                                    $cpurchase= DB::table('purchase_request')->where("subscriber_id", Auth::user()->subscriber_id)->where('status', '=', 'Cancelled')->orWhere('status', '=', 'In progress')->get();
                                     foreach ($cpurchase as $cpurchases ) 
                                     {
                                          $doccount=Document::where('pr_id', $cpurchases->id)->count();

@@ -19,6 +19,13 @@
             </div>
         @endif
         
+        @if ( Session::get('errorstatus') )
+            
+            <div class="alert alert-danger">
+                <center>Subscription has been deactivated.</center>
+            </div>
+        @endif
+
 		@if ( Session::get('error') )
 			
             <div class="alert alert-danger">

@@ -352,6 +352,8 @@ class UserController extends BaseController {
 
     public function login() // DISPLAYS LOGIN FORM
     {
+      
+
         if( Confide::user() )
         {
             // If user is logged, redirect to internal 
@@ -381,6 +383,15 @@ class UserController extends BaseController {
         {
          $fetched_username = $key->username;
          $status = $key->confirmed;
+        }
+
+
+        $userS= User::where("username", $fetched_username)->first();
+        $sub = Subscriber::find($userS->subscriber_id);
+        if($sub->status==0)
+        {
+            return Redirect::back()
+            ->with( 'errorstatus', "Subscription is deactivated." );
         }
 
         // Authenticate User
