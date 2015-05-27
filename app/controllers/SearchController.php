@@ -24,10 +24,10 @@ class SearchController extends BaseController {
                     ->join('offices', 'purchase_request.office', '=', 'offices.id')
                     ->join('document', 'purchase_request.id', '=', 'document.pr_id')
                     ->join('taskdetails', 'taskdetails.doc_id', '=', 'document.id')
-                    ->join('tasks', 'tasks.id', '=', 'taskdetails.task_id')->where(DB::raw('YEAR(purchase_request.dateReceived)'), '=', $starty)->where(DB::raw('MONTH(purchase_request.dateReceived)'), '=', $startm)->where(DB::raw('DAY(purchase_request.dateReceived)'), '=', $startd)->where('tasks.taskName', '=', 'BUDGET / ACTG')->where('purchase_request.status', '=', 'Active');
+                    ->join('tasks', 'tasks.id', '=', 'taskdetails.task_id')->where(DB::raw('YEAR(purchase_request.dateReceived)'), '=', $starty)->where(DB::raw('MONTH(purchase_request.dateReceived)'), '=', $startm)->where(DB::raw('DAY(purchase_request.dateReceived)'), '=', $startd)->where('tasks.taskName', '=', 'BUDGET / ACTG')->where('purchase_request.status', '=', 'Active')->where("purchase_request.subscriber_id", Auth::user()->subscriber_id);
 
-                $pageCounter = $requests->where("subscriber_id", Auth::user()->subscriber_id)->count();
-                $requests = $requests->where("subscriber_id", Auth::user()->subscriber_id)->orderBy('purchase_request.dateReceived', 'DESC')->get();
+                $pageCounter = $requests->count();
+                $requests = $requests->orderBy('purchase_request.dateReceived', 'DESC')->get();
             }
             else
             {
