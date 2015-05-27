@@ -54,6 +54,17 @@ Route::filter('auth.basic', function()
 	return Auth::basic();
 });
 
+Route::filter('rank', function()
+{
+	$sub = Subscriber::find(Auth::user()->subscriber_id);
+	if ($sub->rank==0)
+	{
+		return Response::make('Subscription must be premium to access this feature.', 401);
+
+	}
+});
+
+
 /*
 |--------------------------------------------------------------------------
 | Guest Filter

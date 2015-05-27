@@ -12,15 +12,15 @@ Route::get('/', function()
 Route::get( 'janisawesome', 'BaseController@janisawesome');
 
 //---------- Complete Table View route
-Route::post( 'purchaseRequest/completeTable/active', 'SearchController@completeActiveSearch');
-Route::post( 'purchaseRequest/completeTable/closed', 'SearchController@completeClosedSearch');
-Route::post( 'purchaseRequest/completeTable/cancelled', 'SearchController@completeCancelledSearch');
-Route::post( 'purchaseRequest/completeTable/overdue', 'SearchController@completeOverdueSearch');
+Route::post( 'purchaseRequest/completeTable/active', 'SearchController@completeActiveSearch')->before('rank');
+Route::post( 'purchaseRequest/completeTable/closed', 'SearchController@completeClosedSearch')->before('rank');
+Route::post( 'purchaseRequest/completeTable/cancelled', 'SearchController@completeCancelledSearch')->before('rank');
+Route::post( 'purchaseRequest/completeTable/overdue', 'SearchController@completeOverdueSearch')->before('rank');
 
-Route::get( 'purchaseRequest/completeTable/active', 'SearchController@completeTableActive');
-Route::get( 'purchaseRequest/completeTable/closed', 'SearchController@completeTableClosed');
-Route::get( 'purchaseRequest/completeTable/cancelled', 'SearchController@completeTableCancelled');
-Route::get( 'purchaseRequest/completeTable/overdue', 'SearchController@completeTableOverdue');
+Route::get( 'purchaseRequest/completeTable/active', 'SearchController@completeTableActive')->before('rank');
+Route::get( 'purchaseRequest/completeTable/closed', 'SearchController@completeTableClosed')->before('rank');
+Route::get( 'purchaseRequest/completeTable/cancelled', 'SearchController@completeTableCancelled')->before('rank');
+Route::get( 'purchaseRequest/completeTable/overdue', 'SearchController@completeTableOverdue')->before('rank');
 Route::get( 'cancelcreate', 'PurchaseRequestController@cancelcreate');
 
 //---------- Login Routes
@@ -143,12 +143,12 @@ Route::get('task/{id}', [ 'uses' => 'TaskController@taskpagecall']);
 //---------- Image Module Components
 Route::post('newcreate', ['uses' => 'PurchaseRequestController@create_submit', 'as'=>'/newcreate']);
 
-Route::post('autoupload', ['uses' => 'PurchaseRequestController@autoupload', 'as'=>'/autoupload']);
-Route::post('autouploadsaved', ['uses' => 'PurchaseRequestController@autouploadsaved', 'as'=>'/autouploadsaved']);
+Route::post('autoupload', ['uses' => 'PurchaseRequestController@autoupload', 'as'=>'/autoupload'])->before('rank');
+Route::post('autouploadsaved', ['uses' => 'PurchaseRequestController@autouploadsaved', 'as'=>'/autouploadsaved'])->before('rank');
 
 Route::post('newedit', ['uses' => 'PurchaseRequestController@edit_submit', 'as'=>'/newedit']);
-Route::post('addimage', ['uses' => 'PurchaseRequestController@addimage']);
-Route::post('delimage', ['uses'=> 'PurchaseRequestController@delimage']);
+Route::post('addimage', ['uses' => 'PurchaseRequestController@addimage'])->before('rank');
+Route::post('delimage', ['uses'=> 'PurchaseRequestController@delimage'])->before('rank');
 
 
 //---------- AJAX Routes
