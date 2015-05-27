@@ -72,6 +72,7 @@
     
 @stop
 
+
 @section('footer')
                 {{ HTML::script('ios_overlay/js/iosOverlay.js') }}
                 {{ HTML::script('ios_overlay/js/prettify.js') }}

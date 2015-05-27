@@ -62,7 +62,7 @@
 				$admin = Assigned::where('user_id', Auth::User()->id)->first();
 				$users = DB::table('users');
                 $userCounter = $users->count();
-                $users = $users->paginate(10);
+                $users = $users->where("subscriber_id", Auth::user()->subscriber_id)->paginate(10);
 			?>
 			@if($admin->role_id == 3)
 				<th>Action</th>

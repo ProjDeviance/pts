@@ -70,7 +70,7 @@
 						<td>{{{ $section->maxDuration }}}</td>
 
 						<td> 
-						<?php  $designations = DB::table('designation')->where('id', $designation_id)->get();	?>
+						<?php  $designations = DB::table('designation')->where('id', $designation_id)->where("subscriber_id", Auth::user()->subscriber_id)->get();	?>
 						@if($designation_id!=0)
 							@foreach ($designations as $designation)
 							<div class="mode1" id="insert_{{$section->id}}">
@@ -83,7 +83,7 @@
 							<input type="hidden" id="hide_currentDesignation" class="hide_currentDesignation" value="0">
 						@endif
 							
-						<?php $designations = DB::table('designation')->orderBy('designation', 'ASC')->get(); ?>
+						<?php $designations = DB::table('designation')->where("subscriber_id", Auth::user()->subscriber_id)->orderBy('designation', 'ASC')->get(); ?>
 
 						<form class="form ajax" action="/workflow/submit/{{$section->id}}" data-replace="#insert_{{$section->id}}" method="post" role="form" class="form-inline">
 
@@ -171,7 +171,7 @@
 						<td> {{{ $section->taskName }}} </td>
 						<td>{{{ $section->maxDuration }}}</td>
 						<td> 
-						<?php  $designations = DB::table('designation')->where('id', $designation_id)->get();	?>
+						<?php  $designations = DB::table('designation')->where("subscriber_id", Auth::user()->subscriber_id)->where('id', $designation_id)->get();	?>
 						@if($designation_id!=0)
 							@foreach ($designations as $designation)
 							<div class="mode1" id="insert_{{$section->id}}">
@@ -184,7 +184,7 @@
 							<input type="hidden" id="hide_currentDesignation" class="hide_currentDesignation" value="0">
 						@endif
 							
-						<?php $designations = DB::table('designation')->orderBy('designation', 'ASC')->get(); ?>
+						<?php $designations = DB::table('designation')->where("subscriber_id", Auth::user()->subscriber_id)->orderBy('designation', 'ASC')->get(); ?>
 
 						<form class="form ajax" action="/workflow/submit/{{$section->id}}" data-replace="#insert_{{$section->id}}" method="post" role="form" class="form-inline">
 
@@ -275,7 +275,7 @@
 						<td> {{{ $section->taskName }}} </td>
 						<td>{{{ $section->maxDuration }}}</td>
 						<td> 
-						<?php  $designations = DB::table('designation')->where('id', $designation_id)->get();	?>
+						<?php  $designations = DB::table('designation')->where("subscriber_id", Auth::user()->subscriber_id)->where('id', $designation_id)->get();	?>
 						@if($designation_id!=0)
 							@foreach ($designations as $designation)
 							<div class="mode1" id="insert_{{$section->id}}">
@@ -288,7 +288,7 @@
 							<input type="hidden" id="hide_currentDesignation" class="hide_currentDesignation" value="0">
 						@endif
 							
-						<?php $designations = DB::table('designation')->orderBy('designation', 'ASC')->get(); ?>
+						<?php $designations = DB::table('designation')->where("subscriber_id", Auth::user()->subscriber_id)->orderBy('designation', 'ASC')->get(); ?>
 
 						<form class="form ajax" action="/workflow/submit/{{$section->id}}" data-replace="#insert_{{$section->id}}" method="post" role="form" class="form-inline">
 

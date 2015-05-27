@@ -76,7 +76,7 @@
                 <label for="role">Office</label>
                 <select class="form-control" name="office">
                     <option value=0 <?php if(Input::old('office')==0){echo "selected";} ?>>none</option>
-                    <?php $office= new Office; $office = DB::table('offices')->get(); ?>
+                    <?php $office= new Office; $office = DB::table('offices')->where("subscriber_id", Auth::user()->subscriber_id)->get(); ?>
 
                     @foreach ($office as $offices)
                         <option value="{{{ $offices->id }}}" 

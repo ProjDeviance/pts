@@ -493,11 +493,13 @@ class PurchaseRequestController extends Controller
                     $reports = new Reports;
                     $reports->date = $date_received;
                     $reports->pRequestCount = 1;
+
                 }
                 else
                 {
                     $reports->pRequestCount = $reports->pRequestCount + 1;
                 }
+                $reports->subscriber_id = Auth::user()->subscriber_id;
                 $reports->save();
                 //End Reports
 
@@ -1143,7 +1145,7 @@ class PurchaseRequestController extends Controller
                 {
                     $reports->pOrderCount = $reports->pOrderCount + 1;
                 }
-
+                $reports->subscriber_id = Auth::user()->subscriber_id;
                 $reports->save();
             }
 
@@ -1586,6 +1588,7 @@ class PurchaseRequestController extends Controller
             {
                 $reports->chequeCount = $reports->chequeCount + 1;
             }
+            $reports->subscriber_id = Auth::user()->subscriber_id;
             $reports->save();
 
             //End Cheque
